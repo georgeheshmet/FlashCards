@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from '../api'
 import { getAllFlashCards, add_card, addDeck } from '../actions'
+import DeckPreview from './DeckPreview'
 
 class DeckList extends React.Component{
     componentDidMount(){
@@ -19,9 +20,10 @@ class DeckList extends React.Component{
     }
     render(){
         console.log(this.props)
+        const { Decks }=this.props
         return(
-            <View>
-                <Text>
+            <View style={styles.container}>
+                <Text >
                     Decklist
                 </Text>
                 <TouchableOpacity  onPress={this.addCardNow}>
@@ -29,16 +31,33 @@ class DeckList extends React.Component{
                         add deck
                     </Text>
                 </TouchableOpacity>
+                {Object.keys(Decks).map((deck)=>{
+                    const noCards = Decks[deck].questions.length
+                    return(
+                    <DeckPreview DeckId={deck} noCards={noCards}/>
+                    )
+                })}
 
             </View>
         )
     }
 }
 
+
+const styles = StyleSheet.create({
+    container:{
+        padding:10,
+        margin:10,
+        marginBottom:20,
+        flex:1,
+        backgroundColor: '#E0E0E0',
+
+    }
+})
 export default connect(
     (state)=>{
         return {
-            cards: state
+            Decks: state
         }
     }
 )(DeckList)

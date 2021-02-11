@@ -21,8 +21,6 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducers)}>
         <View style={styles.container}>
-          <Text>Open up App.js tdo stahrt workinjjg on your app!</Text>
-          <StatusBar style="auto" />
           <DeckList/>
         </View>
       </Provider>
@@ -31,12 +29,11 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  container:{
+    flex:1,
+    backgroundColor: '#E0E0E0',
+    justifyContent: 'center'
+}
 });
 
 // export default connect()(App)
