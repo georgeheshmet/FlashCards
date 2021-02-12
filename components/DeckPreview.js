@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         margin:10,
         marginBottom:20,
         flex:1,
+        minHeight:100,
         flexDirection: 'row',
         alignItems: 'center',
         borderColor: '#A0A0A0',
@@ -33,10 +34,15 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function DeckPreview(props){
-    const {DeckId, noCards} =props
+export default class DeckPreview extends React.Component{
+    goToDeck=()=>{
+        const {DeckId, noCards} =this.props
+        console.log("deck details",DeckId, noCards)
+    }
+    render(){
+    const {DeckId, noCards} =this.props
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={this.goToDeck}>
             <FontAwesome name="list-alt" size={80} color="black" />
             <View style={[styles.deckInfo, styles.center]}>
                 <View>
@@ -45,7 +51,7 @@ export default function DeckPreview(props){
                             Deck name : 
                         </Text>
                         <Text style={{color:'#0080FF'}}>
-                            {DeckId}
+                            {` ${DeckId}`}
                         </Text>
                     </View>
                     <View style={{flexDirection:'row'}}>
@@ -53,13 +59,14 @@ export default function DeckPreview(props){
                             No of Cards:
                         </Text>
                         <Text style={{color:'#0080FF'}}>
-                            {noCards}
+                        {` ${noCards}`}
                         </Text>
                     </View>
 
                 </View>
 
             </View>
-        </View>
+        </TouchableOpacity>
     )
+}
 }

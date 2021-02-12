@@ -23,18 +23,14 @@ class DeckList extends React.Component{
         const { Decks }=this.props
         return(
             <View style={styles.container}>
-                <Text >
+                <Text style={styles.heading}>
                     Decklist
                 </Text>
-                <TouchableOpacity  onPress={this.addCardNow}>
-                    <Text>
-                        add deck
-                    </Text>
-                </TouchableOpacity>
+                {/* add list view here (flat list) */}
                 {Object.keys(Decks).map((deck)=>{
                     const noCards = Decks[deck].questions.length
                     return(
-                    <DeckPreview DeckId={deck} noCards={noCards}/>
+                    <DeckPreview key={deck} DeckId={deck} noCards={noCards}/>
                     )
                 })}
 
@@ -46,11 +42,21 @@ class DeckList extends React.Component{
 
 const styles = StyleSheet.create({
     container:{
-        padding:10,
-        margin:10,
         marginBottom:20,
         flex:1,
         backgroundColor: '#E0E0E0',
+
+    },
+    heading :{
+        fontSize: 40,
+        alignSelf: 'flex-start',
+        backgroundColor: 'white',
+        fontWeight:'bold',
+        margin:10,
+        padding:10,
+        borderColor: '#A0A0A0',
+        borderRadius:10,
+        borderWidth: 1,
 
     }
 })

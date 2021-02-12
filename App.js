@@ -6,6 +6,63 @@ import { createStore } from 'redux'
 import reducers from './reducers'
 import { Provider, connect } from 'react-redux'
 import DeckList from './components/DeckList'
+import AddDeck from './components/AddDeck'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import { NavigationContainer } from '@react-navigation/native'
+import { FontAwesome, Ionicons,Entypo   } from '@expo/vector-icons'
+const Tab = createMaterialTopTabNavigator();
+
+const MyTabs=() =>{
+  return (
+    <Tab.Navigator
+      initialRouteName='All Decks'
+      tabBarOptions= {{
+        activeTintColor: 'black',
+        inactiveTintColor: 'white',
+        pressColor:'gray',
+        labelStyle: {
+          fontSize: 17,
+          fontWeight:'bold'
+        },
+        // showIcon: true,
+        // showLabel:true,
+        style: {
+          justifyContent:'center',
+          alignContent:'center',
+          height: 80,
+          backgroundColor: '#0080FF',
+          shadowColor: 'gray',
+          shadowOffset: {
+            width: 0,
+            height: 3
+          },
+          shadowRadius: 6,
+          shadowOpacity: 1
+        }
+      }}
+    >
+      <Tab.Screen
+        name='All Decks'
+        component={DeckList}
+        options={{
+          tabBarLabel: 'All Decks',
+          tabBarIcon: ({color}) =>(<FontAwesome name="list-alt" size={25} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name='Add deck'
+        component={AddDeck}
+        options={{
+          tabBarLabel: 'add deck',
+          tabBarIcon: ({ color }) => (<Entypo name="add-to-list" size={25} color={color} />)
+        }}
+      />  
+    </Tab.Navigator>
+  );
+}
+
 export default class App extends React.Component {
 
   componentDidMount(){
@@ -21,7 +78,7 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducers)}>
         <View style={styles.container}>
-          <DeckList/>
+        <NavigationContainer><MyTabs/></NavigationContainer>
         </View>
       </Provider>
     )
