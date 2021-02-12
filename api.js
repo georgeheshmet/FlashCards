@@ -87,10 +87,7 @@ export const saveCardtoDeck= async({question, answer}, DeckId)=>{
         }
         const oldData = await AsyncStorage.getItem(FLASH_CARDS_KEY)
         let newData= JSON.parse(oldData)
-        if(newData[DeckId]){
-            newData[DeckId].questions.push(addedQuestion)
-        }
-        else{
+        if(!newData[DeckId]){
             newData[DeckId]={}
             newData[DeckId].questions=[]
             newData[DeckId].title = DeckId

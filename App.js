@@ -7,11 +7,57 @@ import reducers from './reducers'
 import { Provider, connect } from 'react-redux'
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
+import AddCard from './components/Addcard'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { FontAwesome, Ionicons,Entypo   } from '@expo/vector-icons'
+import  DeckView  from './components/DeckView'
+import Quiz from './components/Quiz'
+
 const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator()
+
+
+function MyStack({route}) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="All Decks" options ={{
+        headerShown:false
+      }}component={MyTabs} />
+      <Stack.Screen name="Deck details" 
+      options={({route})=>({
+        headerTintColor: "white",
+        title: route.params.DeckId, 
+        headerStyle: {
+          backgroundColor: '#0080FF', // Specify the height of your custom header
+        }
+        })}
+      
+      component={DeckView} />
+      <Stack.Screen name="Quiz" 
+      options={({route})=>({
+        headerTintColor: "white",
+        title: `Quiz on Deck: ${route.params.DeckId}`, 
+        headerStyle: {
+          backgroundColor: '#0080FF', // Specify the height of your custom header
+        }
+        })}
+      
+      component={Quiz} />      
+      <Stack.Screen name="Add card" 
+      options={({route})=>({
+        headerTintColor: "white",
+        title: `Add card to ${route.params.DeckId}`, 
+        headerStyle: {
+          backgroundColor: '#0080FF', // Specify the height of your custom header
+        }
+        })}
+      
+      component={AddCard} /> 
+    </Stack.Navigator>
+  );
+}
 
 const MyTabs=() =>{
   return (
@@ -28,7 +74,7 @@ const MyTabs=() =>{
         // showIcon: true,
         // showLabel:true,
         style: {
-          justifyContent:'center',
+          justifyContent:'flex-end',
           alignContent:'center',
           height: 80,
           backgroundColor: '#0080FF',
@@ -78,7 +124,7 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducers)}>
         <View style={styles.container}>
-        <NavigationContainer><MyTabs/></NavigationContainer>
+        <NavigationContainer><MyStack/></NavigationContainer>
         </View>
       </Provider>
     )

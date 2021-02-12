@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome,Entypo } from '@expo/vector-icons'
 
 const styles = StyleSheet.create({
     container:{
@@ -37,20 +37,24 @@ const styles = StyleSheet.create({
 export default class DeckPreview extends React.Component{
     goToDeck=()=>{
         const {DeckId, noCards} =this.props
-        console.log("deck details",DeckId, noCards)
+        // console.log("deck preview props",this.props)
+        // console.log("deck details",DeckId, noCards)
+        this.props.navigation.navigate("Deck details",{DeckId:DeckId, noCards: noCards})
+
     }
     render(){
     const {DeckId, noCards} =this.props
     return (
         <TouchableOpacity style={styles.container} onPress={this.goToDeck}>
             <FontAwesome name="list-alt" size={80} color="black" />
+            <Entypo name="flow-line" size={80} color="black" />
             <View style={[styles.deckInfo, styles.center]}>
                 <View>
                     <View style={{flexDirection:'row'}}>
                         <Text style={{color:'black',fontWeight:'bold'}}>
                             Deck name : 
                         </Text>
-                        <Text style={{color:'#0080FF'}}>
+                        <Text style={{color:'#0080FF',fontWeight:'bold'}}>
                             {` ${DeckId}`}
                         </Text>
                     </View>
@@ -58,7 +62,7 @@ export default class DeckPreview extends React.Component{
                         <Text style={{color:'black',fontWeight:'bold'}}>
                             No of Cards:
                         </Text>
-                        <Text style={{color:'#0080FF'}}>
+                        <Text style={{color:'#0080FF',fontWeight:'bold'}}>
                         {` ${noCards}`}
                         </Text>
                     </View>

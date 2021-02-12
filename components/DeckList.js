@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, FlatList, Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from '../api'
 import { getAllFlashCards, add_card, addDeck } from '../actions'
@@ -15,24 +15,35 @@ class DeckList extends React.Component{
             question :"NO?",
             answer: "NO!"
         }
-        console.log("here we go")
+        // console.log("here we go")
         this.props.dispatch(addDeck('angular'))
     }
+
+    renderItem=(deck)=>{
+        // console.log("inside render",deck)
+        const { Decks }=this.props
+        const noCards = Decks[deck.item].questions.length
+        return(
+            <DeckPreview  DeckId={deck.item} noCards={noCards} navigation={this.props.navigation}/>
+        )
+    }
     render(){
-        console.log(this.props)
+        // console.log(this.props)
         const { Decks }=this.props
         return(
             <View style={styles.container}>
                 <Text style={styles.heading}>
-                    Decklist
+                    Deck names
                 </Text>
                 {/* add list view here (flat list) */}
-                {Object.keys(Decks).map((deck)=>{
-                    const noCards = Decks[deck].questions.length
-                    return(
-                    <DeckPreview key={deck} DeckId={deck} noCards={noCards}/>
-                    )
-                })}
+                {/* {Object.keys(Decks).map((deck)=>{ */}
+                    {/* const noCards = Decks[deck].questions.length */}
+                    {/* return( */}
+                    <FlatList data={Object.keys(Decks)} renderItem={this.renderItem} keyExtractor={deck=>deck}/>
+                    {/* // <DeckPreview key={deck} DeckId={deck} noCards={noCards}/> */}
+                    {/* ) */}
+                {/* }) */}
+                {/* } */}
 
             </View>
         )
@@ -48,15 +59,20 @@ const styles = StyleSheet.create({
 
     },
     heading :{
+        color:'#0080FF',
         fontSize: 40,
-        alignSelf: 'flex-start',
+        alignSelf: 'stretch',
         backgroundColor: 'white',
         fontWeight:'bold',
-        margin:10,
+        marginTop:10,
         padding:10,
         borderColor: '#A0A0A0',
-        borderRadius:10,
+        // borderRadius:10,
         borderWidth: 1,
+        // shadowColor: 'gray',
+        // shadowOffset:{width: 2, height:2},
+        // shadowRadius: 5,
+
 
     }
 })
