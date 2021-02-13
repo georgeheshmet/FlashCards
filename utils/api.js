@@ -65,7 +65,6 @@ export const saveDummyData = async()=>{
 
 export const getData = async()=>{
     try {
-        await AsyncStorage.removeItem(FLASH_CARDS_KEY)
         let data = await AsyncStorage.getItem(FLASH_CARDS_KEY)
         //console.log("get dat areturns: ",data)
         /* if no data is there save dummy data */
