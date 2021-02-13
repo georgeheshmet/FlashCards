@@ -39,7 +39,7 @@ export default class DeckPreview extends React.Component{
         const {DeckId, noCards} =this.props
         // console.log("deck preview props",this.props)
         // console.log("deck details",DeckId, noCards)
-        this.props.navigation.navigate("Deck details",{DeckId:DeckId, noCards: noCards})
+        this.props.navigation.navigate("Deck details",{DeckId:DeckId})
 
     }
     render(){
