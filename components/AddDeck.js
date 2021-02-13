@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet,TextInput, Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { FontAwesome } from '@expo/vector-icons'
-import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from '../api'
+import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from '../utils/api'
 import { getAllFlashCards, add_card, addDeck } from '../actions'
 
 class AddDeck extends React.Component{
@@ -12,7 +12,7 @@ class AddDeck extends React.Component{
 
     handlevalueChange=(value)=>{
         this.setState(()=>({newName: value}))
-        console.log(value)
+        // console.log(value)
     }
 
     handleSubmit=()=>{
@@ -21,7 +21,7 @@ class AddDeck extends React.Component{
             saveNewDeck(newDeckName) 
             this.props.dispatch(addDeck(newDeckName))
             this.setState(()=>({newName: ''}))
-            this.props.navigation.navigate('All Decks')
+            this.props.navigation.navigate('Deck details', { DeckId: newDeckName })
         }
         catch(e){
             console.log("error saving deck")
@@ -35,7 +35,7 @@ class AddDeck extends React.Component{
 
             <TouchableOpacity style={styles.Button} onPress={this.handleSubmit}>
                 <Text style={{fontSize:20, color:'white'}}>
-                Add
+                Create Deck
                 </Text>   
             </TouchableOpacity>
         </View>
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     container:{
         padding:10,
         margin:10,
-        marginBottom:20,
         flex:1,
         flexDirection: 'row',
         justifyContent:'center',
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#0080FF',
         borderRadius: 5,
         alignSelf:'center',
-
+        marginRight:10,
         padding: 15
     }
 })

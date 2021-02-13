@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet,TextInput, Text, View, TouchableOpacity, Alert  } from 'react-native'
 import { connect } from 'react-redux'
 import { FontAwesome } from '@expo/vector-icons'
-import { saveCardtoDeck} from '../api'
+import { saveCardtoDeck} from '../utils/api'
 import { getAllFlashCards, add_card, addDeck } from '../actions'
 
 const styles=StyleSheet.create({

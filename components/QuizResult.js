@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet,TextInput, Text, View, TouchableOpacity, Alert  } from 'react-native'
 import { connect } from 'react-redux'
-
+import { setLocalNotification, clearLocalNotification} from '../utils/notificationsHelper'
 
 const styles = StyleSheet.create({
     container:{
@@ -78,6 +78,9 @@ export default class extends React.Component {
                 score: Math.round(result*100/Object.keys(score).length)
             }))
             console.log("result is",result)
+            clearLocalNotification()
+            setLocalNotification()
+
         
     }
     render(){

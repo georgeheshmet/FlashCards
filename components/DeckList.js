@@ -1,13 +1,14 @@
 import React from 'react'
 import { StyleSheet, FlatList, Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from '../api'
+import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from '../utils/api'
 import { getAllFlashCards, add_card, addDeck } from '../actions'
 import DeckPreview from './DeckPreview'
-
+import { setLocalNotification } from '../utils/notificationsHelper'
 class DeckList extends React.Component{
     componentDidMount(){
-        getData().then((flashCards)=>this.props.dispatch(getAllFlashCards(flashCards)))
+        getData().then((flashCards)=>this.props.dispatch(getAllFlashCards(flashCards))).then(()=>(
+        setLocalNotification()))
 
     }
     addCardNow=()=>{

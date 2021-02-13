@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet,TextInput, Text, View, TouchableOpacity, Alert  } from 'react-native'
 import { connect } from 'react-redux'
 import { FontAwesome, Ionicons,MaterialIcons } from '@expo/vector-icons'
-import { saveCardtoDeck} from '../api'
+import { saveCardtoDeck} from '../utils/api'
 import QuizResult from './QuizResult'
 const styles = StyleSheet.create({
     container:{
@@ -172,12 +172,12 @@ class Quiz extends React.Component{
                 <View style={{flexDirection:'row',justifyContent:'center'}}>
                     <View style={[styles.questionNo,{borderTopRightRadius:0 ,borderBottomRightRadius:0}]}>
                         <Text style={{fontSize:15,fontWeight:'bold'}}>
-                        Question
+                        Remaining Questions
                         </Text>
                     </View>   
                     <View style={[styles.questionNo,{borderTopLeftRadius:0 ,borderBottomLeftRadius:0}]}>
                         <Text style={{fontSize:15,color:'#0080FF',fontWeight:'bold'}}>
-                            {`${questionIndex+1}/${questions.length}`}
+                            {`${questions.length-questionIndex+1}`}
                         </Text>
                     </View> 
                 </View>}

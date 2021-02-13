@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const FLASH_CARDS_KEY ='flashCardsApiKey'
+export const FLASH_CARDS_KEY ='flashCardsApiKey'
 dummyData={
+    flashCards:{
     React: {
       title: 'React',
       questions: [
@@ -49,8 +50,9 @@ dummyData={
         }	  
       ]
     }
+  },
+  notificationQuiz:null
   }
-
 export const saveDummyData = async()=>{
        const data= JSON.stringify(dummyData)
        try {
@@ -63,15 +65,17 @@ export const saveDummyData = async()=>{
 
 export const getData = async()=>{
     try {
+        await AsyncStorage.removeItem(FLASH_CARDS_KEY)
         let data = await AsyncStorage.getItem(FLASH_CARDS_KEY)
         //console.log("get dat areturns: ",data)
         /* if no data is there save dummy data */
-        // if (data === null){
-        //   saveDummyData()
-        //   data =await AsyncStorage.getItem(FLASH_CARDS_KEY)
-        // }
+        if (data === null){
+          saveDummyData()
+          data =await AsyncStorage.getItem(FLASH_CARDS_KEY)
+        }
         const  FetchedData = JSON.parse(data)
-        return {...FetchedData}
+        console.log(FetchedData.notificationQuiz)
+        return {...FetchedData.flashCards}
     }
     catch(e){
         console.log("error detected ", e)

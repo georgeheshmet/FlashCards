@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from './api'
+import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from './utils/api'
 import { createStore } from 'redux'
 import reducers from './reducers'
 import { Provider, connect } from 'react-redux'
@@ -117,6 +117,7 @@ export default class App extends React.Component {
     // saveCardtoDeck(question,'jobat')
     // saveNewDeck('bestdeck')
     // getData()
+    
   }
 
   render(){
