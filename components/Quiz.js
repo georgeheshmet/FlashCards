@@ -155,9 +155,9 @@ class Quiz extends React.Component{
         const { DeckId } = this.props.route.params
         if(this.state.questions.length===0){
             return(
-                <View style={{justifyContent:'center',alignContent:'center',flex:1}}>
-                    <Text style={{fontSize:30}}>
-                    Loading...
+                <View style={{flex:1,justifyContent:'center',alignContent:'center',flex:1,margin:5}}>
+                    <Text style={{fontSize:30, alignSelf:'center'}}>
+                    No questions in deck to display
                     </Text>
                 </View>
 
@@ -177,7 +177,7 @@ class Quiz extends React.Component{
                     </View>   
                     <View style={[styles.questionNo,{borderTopLeftRadius:0 ,borderBottomLeftRadius:0}]}>
                         <Text style={{fontSize:15,color:'#0080FF',fontWeight:'bold'}}>
-                            {`${questions.length-questionIndex+1}`}
+                            {`${questions.length-questionIndex-1}`}
                         </Text>
                     </View> 
                 </View>}

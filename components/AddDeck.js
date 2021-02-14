@@ -1,9 +1,20 @@
 import React from 'react'
-import { StyleSheet,TextInput, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet,TextInput, Text, View, TouchableOpacity,Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { FontAwesome } from '@expo/vector-icons'
 import { saveDummyData, getData, saveCardtoDeck, saveNewDeck } from '../utils/api'
 import { getAllFlashCards, add_card, addDeck } from '../actions'
+
+const createButtonAlert = (title,message) =>
+Alert.alert(
+  title,
+  message,
+  [
+
+    { text: "OK", onPress: () => console.log("OK Pressed") }
+  ],
+  { cancelable: false }
+)
 
 class AddDeck extends React.Component{
     state={
@@ -17,6 +28,7 @@ class AddDeck extends React.Component{
 
     handleSubmit=()=>{
         const newDeckName= this.state.newName.trim()
+        if(newDeckName.length>2){
         try {
             saveNewDeck(newDeckName) 
             this.props.dispatch(addDeck(newDeckName))
@@ -26,6 +38,10 @@ class AddDeck extends React.Component{
         catch(e){
             console.log("error saving deck")
         }
+    }
+    else{
+        createButtonAlert("New Deck","Please enter a valid Deck name")
+    }
     }
     render(){
     return(
