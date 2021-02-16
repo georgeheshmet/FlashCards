@@ -1,5 +1,5 @@
 import React from 'react'
-import { Keyboard, View, StyleSheet,Platform, AsyncStorage  } from 'react-native'
+import { Keyboard, View, StyleSheet,Platform, AsyncStorage, Alert  } from 'react-native'
 import * as Permissions from 'expo-permissions'
 import * as Notifications from 'expo-notifications'
 // import { FLASH_CARDS_KEY } from './api'
@@ -17,6 +17,17 @@ const createNotification =() =>{
       }
     }
   }
+  const createButtonAlert = (title,message) =>
+  Alert.alert(
+    title,
+    message,
+    [
+  
+      { text: "OK", onPress: () => console.log("OK Pressed") }
+    ],
+    { cancelable: false }
+  );
+  
   
   export const setLocalNotification= () =>{
     AsyncStorage.getItem(FLASH_CARDS_NOTIFICATION).then(JSON.parse).then((data)=> {
@@ -41,6 +52,28 @@ const createNotification =() =>{
       }
     })
   }
+
+  export const askCameraAndlocationPermission=()=>{
+    Permissions.askAsync(Permissions.CAMERA).then(({status}) => {
+        console.log("Camera permssion: ",status)
+        if( status === 'denied'){
+            createButtonAlert("Camera cannot operate","Please give permission")
+        }
+  })
+
+    Permissions.askAsync(Permissions.LOCATION).then(({ status })=> {
+      if( status === 'granted' ) {
+          
+        console.log('location granted')
+      }
+      else{
+          console.log("location permssion not granted")
+      }
+
+    }).catch((error)=> {
+    console.warn('Error asking location permsission: ', error)})
+    }
+
 
   export const clearLocalNotification=() =>{
     return AsyncStorage.removeItem(FLASH_CARDS_NOTIFICATION).then(Notifications.cancelAllScheduledNotificationsAsyn)
